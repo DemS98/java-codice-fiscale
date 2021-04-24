@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Antonio",
+    "surname": "Lodi",
+    "birthDate": "28/03/1992",
+    "birthPlace": "Belluno",
+    "birthPlaceProvincia": "BL",
+    "sex": "M"
+  },
+  {
+    "name": "Marco",
+    "surname": "Blotti",
+    "birthDate": "08/11/1984",
+    "birthPlace": "Salerno",
+    "birthPlaceProvincia": "SA",
+    "sex": "M"
+  },
+  {
+    "name": "Nina",
+    "surname": "Williams",
+    "birthDate": "19/10/1977",
+    "birthPlace": "Milano",
+    "birthPlaceProvincia": "MI",
+    "sex": "F"
+  },
+  {
+    "name": "Giorgio",
+    "surname": "Sigon",
+    "birthDate": "22/12/1999",
+    "birthPlace": "Roma",
+    "birthPlaceProvincia": "RM",
+    "sex": "M"
+  },
+  {
+    "name": "Riccardo",
+    "surname": "Sina",
+    "birthDate": "12/12/1945",
+    "birthPlace": "Acquaviva Collecroce",
+    "birthPlaceProvincia": "CB",
+    "sex": "M"
+  },
+  {
+    "name": "Maria",
+    "surname": "Gistarda",
+    "birthDate": "14/07/1993",
+    "birthPlace": "Cigognola",
+    "birthPlaceProvincia": "PV",
+    "sex": "F"
+  },
+  {
+    "name": "Antonella",
+    "surname": "Clocchi",
+    "birthDate": "08/02/1988",
+    "birthPlace": "Cittadella",
+    "birthPlaceProvincia": "PD",
+    "sex": "F"
+  },
+  {
+    "name": "Luca",
+    "surname": "Fo",
+    "birthDate": "11/09/1978",
+    "birthPlace": "Civitavecchia",
+    "birthPlaceProvincia": "RM",
+    "sex": "M"
+  },
+  {
+    "name": "Ermenegildo",
+    "surname": "Lukic",
+    "birthDate": "01/01/1997",
+    "birthPlace": "Contrada",
+    "birthPlaceProvincia": "AV",
+    "sex": "M"
+  },
+  {
+    "name": "Rita",
+    "surname": "Scamacca",
+    "birthDate": "11/04/1992",
+    "birthPlace": "Pont-Saint-Martin",
+    "birthPlaceProvincia": "AO",
+    "sex": "F"
+  }
+]
