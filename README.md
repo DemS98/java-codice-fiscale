@@ -98,7 +98,8 @@ but it's preferable the `CodiceFiscale` class as it is more concise
 
 ### Note
 
-This library doesn't manage the omocodie (when the generated codice fiscale is relative to two or more persons)
+This library doesn't manage the omocodie (when the generated codice fiscale is relative to two or more persons) and
+doesn't support foreign countries
 
 # Author
 
