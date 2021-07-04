@@ -2,7 +2,7 @@ package com.demetrio.codicefiscale;
 
 import com.demetrio.codicefiscale.exception.BirthPlaceHomonymyException;
 import com.demetrio.codicefiscale.exception.CodiceCatastaleNotFoundException;
-import com.demetrio.codicefiscale.exception.InvalidNameException;
+import com.demetrio.codicefiscale.exception.InvalidPersonException;
 import com.demetrio.codicefiscale.model.Sex;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,9 +14,15 @@ public class CodiceFiscaleTest {
 
     @Test
     public void checkCF() throws IOException {
-        Assert.assertEquals("RSSMRA80A01F205X", CodiceFiscale.generate("Mario",
-                "Rossi",LocalDate.of(1980,1,1), "Milano",
-                    Sex.M));
+        Assert.assertEquals("RSSMRA80A01F205X", CodiceFiscale.ofLazyInit()
+                .withName("Mario")
+                .withSurname("Rossi")
+                .withBirthDay(1)
+                .withBirthMonth(1)
+                .withBirthYear(1980)
+                .withBirthPlace("Milano")
+                .withSex(Sex.M)
+                .generate());
 
         // test with external API
 //        try(InputStream jsonFile = this.getClass().getClassLoader()
@@ -65,19 +71,49 @@ public class CodiceFiscaleTest {
 
     @Test(expected = CodiceCatastaleNotFoundException.class)
     public void checkCodiceCatastaleNotFoundException() {
-        CodiceFiscale.generate("Mario", "Rossi", LocalDate.of(1998,10,11),
-                "Imaginary", "IM", Sex.M);
+        CodiceFiscale.ofLazyInit()
+            .withName("Mario")
+            .withSurname("Rossi")
+            .withBirthDate(LocalDate.of(1998,10,11))
+            .withBirthPlace("Imaginary")
+            .withBirthPlaceProvince("IM")
+            .withSex(Sex.M)
+            .generate();
     }
 
     @Test(expected = BirthPlaceHomonymyException.class)
     public void checkBirthPlaceHomonymyException() {
-        CodiceFiscale.generate("Mario", "Rossi", LocalDate.of(1998,10,11),
-                "Samone", Sex.M);
+        CodiceFiscale.ofLazyInit()
+                .withName("Mario")
+                .withSurname("Rossi")
+                .withBirthDay(11)
+                .withBirthMonth(10)
+                .withBirthYear(1998)
+                .withBirthPlace("Samone")
+                .withSex(Sex.M)
+                .generate();
     }
 
-    @Test(expected = InvalidNameException.class)
+    @Test(expected = InvalidPersonException.class)
     public void checkSurnameInvalidNameException() {
-        CodiceFiscale.generate("Mr'+ìù", "Rossi", LocalDate.of(1998,10,11),
-                "Imaginary", "IM", Sex.M);
+        CodiceFiscale.ofLazyInit()
+                .withName("Mr'+iù")
+                .withSurname("Rossi")
+                .withBirthDate(LocalDate.of(1998,10,11))
+                .withBirthPlace("Imaginary")
+                .withBirthPlaceProvince("IM")
+                .withSex(Sex.M)
+                .generate();
+    }
+
+    @Test(expected = InvalidPersonException.class)
+    public void checkNoBirthDateException() {
+        CodiceFiscale.ofLazyInit()
+                .withName("Mario")
+                .withSurname("Rossi")
+                .withBirthPlace("Imaginary")
+                .withBirthPlaceProvince("IM")
+                .withSex(Sex.M)
+                .generate();
     }
 }

@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,8 +24,9 @@ class CodiciCatastali {
 
     private CodiciCatastali() {
         codes = new HashMap<>();
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(CodiciCatastali.class.getClassLoader()
-                .getResourceAsStream("codici_catastali.csv")))) {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(Objects
+                .requireNonNull(CodiciCatastali.class.getClassLoader()
+                .getResourceAsStream("codici_catastali.csv"))))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] split = line.split(";");
@@ -33,7 +35,7 @@ class CodiciCatastali {
                     provinceMap.put(split[2], split[0]);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             LOGGER.log(Level.SEVERE, "Error in reading codici_catastali.csv", e);
         }
     }

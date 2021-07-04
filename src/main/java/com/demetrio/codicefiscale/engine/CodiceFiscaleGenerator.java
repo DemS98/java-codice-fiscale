@@ -2,7 +2,7 @@ package com.demetrio.codicefiscale.engine;
 
 import com.demetrio.codicefiscale.exception.BirthPlaceHomonymyException;
 import com.demetrio.codicefiscale.exception.CodiceCatastaleNotFoundException;
-import com.demetrio.codicefiscale.exception.InvalidNameException;
+import com.demetrio.codicefiscale.exception.InvalidPersonException;
 import com.demetrio.codicefiscale.model.Person;
 import com.demetrio.codicefiscale.model.Sex;
 
@@ -30,9 +30,10 @@ public class CodiceFiscaleGenerator {
      * @throws BirthPlaceHomonymyException if the birthPlace has homonyms (only if {@link Person#getBirthPlaceProvince()}
      *         return {@code null})
      * @throws CodiceCatastaleNotFoundException if the birthPlace and province (italian comune and provincia) don't exist
-     * @throws InvalidNameException if the name or surname is not valid
+     * @throws InvalidPersonException if the person is not valid
      */
     public String generate(Person person) {
+        PersonChecker.checkPerson(person);
         String surnamePart = getSurnameLetters(person.getSurname());
         String namePart = getNameLetters(person.getName());
         String yearMonthPart = "" + (person.getBirthDate().getYear() % 100) +
@@ -64,7 +65,7 @@ public class CodiceFiscaleGenerator {
                     vowels.append(toAsciiVowel(ch));
                 }
             } else if (ch != ' ' && ch != '\'') {
-                throw new InvalidNameException("Surname is not valid. Found invalid char \"" + ch + "\"");
+                throw new InvalidPersonException("Surname is not valid. Found invalid char \"" + ch + "\"");
             }
         }
 
@@ -79,7 +80,7 @@ public class CodiceFiscaleGenerator {
             // if vowels weren't enough, add 'X' character
             if (letters.length() < 3) {
                 if (letters.length() < 2)
-                    throw new InvalidNameException("Surname has " + letters.length() + " letters");
+                    throw new InvalidPersonException("Surname has " + letters.length() + " letters");
                 letters.append("X");
             }
         }
@@ -105,7 +106,7 @@ public class CodiceFiscaleGenerator {
                     vowels.append(toAsciiVowel(ch));
                 }
             } else if (ch != ' ') {
-                throw new InvalidNameException("Name is not valid. Found invalid char \"" + ch + "\"");
+                throw new InvalidPersonException("Name is not valid. Found invalid char \"" + ch + "\"");
             }
         }
 
@@ -121,7 +122,7 @@ public class CodiceFiscaleGenerator {
             // if vowels weren't enough, add 'X' character
             while (letters.length() < 3) {
                 if (letters.length() < 2)
-                    throw new InvalidNameException("Name has " + letters.length() + " letters");
+                    throw new InvalidPersonException("Name has " + letters.length() + " letters");
                 letters.append("X");
             }
         }
